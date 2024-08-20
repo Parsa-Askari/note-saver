@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Kadwa';
+    src:  url('../../fonts/Inter\,Kadwa\,Poppins/kadwa/Kadwa-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+.menu-option{
+    background-color: black;
+    height: var(--menu-height);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-family: Kadwa;
+    & p{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+    }
+    & h1{
+        font-size: 20px;
+    }
+    & h2{
+        font-size: 20px;
+    }
+    &:hover{
+        color: rgb(0, 247, 255);
+        cursor: pointer;
+    }
+}

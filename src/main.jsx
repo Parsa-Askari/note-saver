@@ -1,17 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
 import { Routes,Route,BrowserRouter as Router } from 'react-router-dom'
-import './index.css'
+import Topics from './pages/Topics'
+import MenuContextProvider from './contexts/MenuContexts'
+import './index.scss'
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <Router>
-            <Routes>
-                <Route path='/' >
-                    
-                </Route>
-            </Routes>
-        </Router>
+            <Router>
+                <MenuContextProvider>
+                    <Routes>
+                        <Route path='/' element={<Topics />}/>
+                    </Routes>
+                </MenuContextProvider>
+            </Router>
     </StrictMode>
 )
