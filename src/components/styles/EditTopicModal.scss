@@ -1,0 +1,22 @@
+.EditTopicModal{
+    & .modal-content{
+        background-color: rgb(11, 14, 56);
+        color: white;
+        font-family:Rubic;
+    }
+    & .btn-close{
+        background-color: rgb(221, 20, 20);
+    }
+    & .modal-body{
+        & label{
+            font-weight: bold;
+            color: rgb(255, 0, 212);
+        }
+    
+    }
+    & .modal-footer{
+        border-top: 1px solid;
+        display: flex;
+        justify-content: center;
+    }
+}

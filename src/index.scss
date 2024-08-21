@@ -7,3 +7,37 @@
     height: 100vh;
     overflow-x: hidden;
 }
+//Kadwa
+@font-face {
+    font-family: 'kadwa';
+    src:  url('./fonts/Inter\,Kadwa\,Poppins/kadwa/Kadwa-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mogra';
+    src:  url('./fonts/Mogra/Mogra-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PlayfairDisplay';
+    src:  url('./fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Rubix';
+    src:  url('./fonts/Rubik/Rubik-VariableFont_wght.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'JejuHallasan';
+      src:  url('./fonts/webfonts_JejuHallasan/JejuHallasan.ttf.woff') format('woff'),
+      url('./fonts/webfonts_JejuHallasan/JejuHallasan.ttf.svg#JejuHallasan') format('svg'),
+      url('./fonts/webfonts_JejuHallasan/JejuHallasan.ttf.eot'),
+      url('./fonts/webfonts_JejuHallasan/JejuHallasan.eot?#iefix') format('embedded-opentype'); 
+      font-weight: normal;
+      font-style: normal;
+}

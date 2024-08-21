@@ -2,17 +2,19 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Routes,Route,BrowserRouter as Router } from 'react-router-dom'
 import Topics from './pages/Topics'
-import MenuContextProvider from './contexts/MenuContexts'
+import Notes from './pages/Notes'
+import ReloaderContextProvider from './contexts/ReloaderContext'
 import './index.scss'
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
             <Router>
-                <MenuContextProvider>
+                <ReloaderContextProvider>
                     <Routes>
                         <Route path='/' element={<Topics />}/>
+                        <Route path='/notes/:note_id' element={<Notes />}/>
                     </Routes>
-                </MenuContextProvider>
+                </ReloaderContextProvider>
             </Router>
     </StrictMode>
 )
