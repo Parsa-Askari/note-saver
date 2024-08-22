@@ -1,9 +1,5 @@
 import { useEffect } from "react";
 import { toast } from "../components/UI/Alerts";
-const handleMenuClicks=(event)=>
-{
-    const id = event.target.closest(".col").id
-}
 const handleTopicClicks=(event,nav)=>{
     
     const id=event.target.closest('.topic-item').id;
@@ -84,8 +80,7 @@ function GetTopics(setTopicsList,reload)
     },[reload])
 }
 
-export {handleMenuClicks,
-        handleTopicClicks,
+export {handleTopicClicks,
         handleTopicButtons,
         handleChange,
         handleSumbit,

@@ -1,10 +1,10 @@
 import "../styles/NewTopicModal.scss"
 import { useState } from "react";
 
-function NewTopicModal({value,handleSumbit,handleChange})
+function NewItemModal({value,handleSumbit,handleChange,name})
 {
     return(
-        <div className="modal fade" id="addNewTopic" tabIndex="2" aria-labelledby="addNewTopicLable" aria-hidden="true">
+        <div className="modal fade" id="addNewItem" tabIndex="2" aria-labelledby="addNewTopicLable" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -12,7 +12,7 @@ function NewTopicModal({value,handleSumbit,handleChange})
                             className="modal-title" 
                             id="exampleModalLabel"
                             >
-                            Add A New Topic
+                            Add A New {name}
                         </h5>
                         <button 
                             type="button" 
@@ -28,7 +28,7 @@ function NewTopicModal({value,handleSumbit,handleChange})
                                 <label 
                                     htmlFor="topic-name" 
                                     className="col-form-label">
-                                    Write A Name For Your Topic 
+                                    Write A Name For Your {name} 
                                 </label>
                                 <input 
                                     onChange={handleChange}
@@ -39,7 +39,7 @@ function NewTopicModal({value,handleSumbit,handleChange})
                             </div>
                             <div className="mb-3">
                                 <span style={{color:"red"}}>NOTE : </span>
-                                Your Topic Name Should Be Less Than 80 Characters
+                                Your {name} Name Should Be Less Than 80 Characters
                             </div>
                         </form>
                     </div>
@@ -57,4 +57,4 @@ function NewTopicModal({value,handleSumbit,handleChange})
         </div>
     )
 }
-export default NewTopicModal;
+export default NewItemModal;

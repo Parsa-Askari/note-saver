@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
                 <ReloaderContextProvider>
                     <Routes>
                         <Route path='/' element={<Topics />}/>
-                        <Route path='/notes/:note_id' element={<Notes />}/>
+                        <Route path='/notes/:topic_id' element={<Notes />}/>
                     </Routes>
                 </ReloaderContextProvider>
             </Router>

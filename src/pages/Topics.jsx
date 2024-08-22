@@ -1,14 +1,14 @@
 import Header from '../containers/Header';
 import { memo } from 'react';
 import { useState ,useContext} from 'react';
-import { handleMenuClicks,handleTopicClicks,GetTopics,handleChange,handleSumbit } from '../hooks/TopicsHooks';
+import { handleTopicClicks,GetTopics,handleChange,handleSumbit } from '../hooks/TopicsHooks';
 import { useNavigate } from 'react-router-dom';
 import { ReloaderContext } from '../contexts/ReloaderContext';
 import MainMenuBtn from '../components/UI/MainMenuBtn';
 import NoTopics from '../components/UI/NoTopics';
 import SearchBar from '../components/UI/SeachBar';
 import TopicItem from '../components/TopicsComponents/TopicItem';
-import NewTopicModal from '../components/Modals/NewTopicModal';
+import NewItemModal from '../components/Modals/NewItemModal';
 import "./styles/Topics.scss"
 import './styles/scrollbars.scss'
 function TopicMenu()
@@ -19,7 +19,7 @@ function TopicMenu()
                 },
                 
                 {"text":"Add New Topic","id":"Add","class":"col justify-content-center",
-                    "data-bs-toggle":"modal","data-bs-target":"#addNewTopic"
+                    "data-bs-toggle":"modal","data-bs-target":"#addNewItem"
                 },
                 {"text":"Import","id":"import","class":"col justify-content-center",
                     "data-bs-toggle":"","data-bs-target":""
@@ -27,7 +27,6 @@ function TopicMenu()
     return(
         <Header >
             {items.map((item,index)=><MainMenuBtn 
-                                        handler={handleMenuClicks}
                                         key={index}
                                         btnClass={item['class']} 
                                         optionText={item['text']} 
@@ -80,10 +79,12 @@ function Topics()
             <footer className='row search-bar'>
                 <SearchBar />
             </footer>
-            <NewTopicModal 
+            <NewItemModal 
                 value={topicName}
                 handleChange={(event)=>handleChange(event,setTopicName)} 
-                handleSumbit={(event)=>handleSumbit(event,setTopicName,topicName,setReload)} />
+                handleSumbit={(event)=>handleSumbit(event,setTopicName,topicName,setReload)} 
+                name={"Topic"}
+                />
         </div>
     )
 }
