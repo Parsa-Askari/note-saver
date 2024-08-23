@@ -8,8 +8,11 @@ function SearchContextProvider(props)
         const value=event.target.value
         setSearchValue(value)
     }
+    const clearSearchValue=(event)=>{
+        setSearchValue("")
+    }
     return(
-        <SearchContext.Provider value={{searchValue,saveSearchValue}}>
+        <SearchContext.Provider value={{searchValue,saveSearchValue,clearSearchValue}}>
             {props.children}
         </SearchContext.Provider>
     )

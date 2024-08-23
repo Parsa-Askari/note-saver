@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { toast } from "../components/UI/Alerts";
 
-function GetNotes(setNotesList,topic_id,reload)
+function GetNotes(setNotesList,setFilterdNotes,topic_id,reload)
 {
-    
     useEffect(()=>{
         const func = async()=>{
             try{
+                
                 const res=await fetch("http://localhost/note-saver-server/GetNotes.php",{
                     method:"POST",
                     credentials:"include",
@@ -17,6 +17,7 @@ function GetNotes(setNotesList,topic_id,reload)
                 });
                 const notesList = await res.json();
                 setNotesList(notesList);
+                setFilterdNotes(notesList);
                 localStorage.setItem('topic_id', topic_id);
             }catch(error)
             {
@@ -26,7 +27,16 @@ function GetNotes(setNotesList,topic_id,reload)
         func();
     },[reload])
 }
+function FilterNotes(searchValue,NotesList,setFilterdNotes)
+{
+    useEffect(()=>{
 
+        const filteredNotes=NotesList.filter(item=>
+            item['notes_name'].toLowerCase().includes(searchValue)
+        )
+        setFilterdNotes(filteredNotes)
+    },[searchValue])
+}
 const handleChange = (event,setNoteName)=>{
     const value=event.target.value;
     setNoteName(value)
@@ -98,4 +108,8 @@ const handleSumbit = async(event,setNoteName,noteName,setReload)=>{
         console.log(error)
     }
 }
-export {handleChange,handleSumbit,GetNotes,handleNoteButtons}
+export {handleChange,
+        handleSumbit,
+        GetNotes,
+        handleNoteButtons,
+        FilterNotes}

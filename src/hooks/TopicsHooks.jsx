@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { toast } from "../components/UI/Alerts";
-const handleTopicClicks=(event,nav)=>{
+const handleTopicClicks=(event,nav,clearSearchValue)=>{
     
     const id=event.target.closest('.topic-item').id;
+    clearSearchValue()
     nav("/notes/"+id)
 }
 const handleChange=(event,setTopicName)=>{

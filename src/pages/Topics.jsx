@@ -42,6 +42,7 @@ function TopicMenu()
 function TopicItems({topicsList})
 {
     const nav=useNavigate();
+    const{clearSearchValue}=useContext(SearchContext)
     return(
         <>
             <div className='col-2 col-lg-3'></div>
@@ -49,7 +50,7 @@ function TopicItems({topicsList})
                 className='topic-items  col-8 col-lg-6'>
                 {topicsList.map((item,index)=><TopicItem 
                                                 key={index}
-                                                handler={(event)=>handleTopicClicks(event,nav)}
+                                                handler={(event)=>handleTopicClicks(event,nav,clearSearchValue)}
                                                 name={item['topics_name']} 
                                                 id={item['topics_id']}
                                                 count={item['topics_note_count']}/>)}

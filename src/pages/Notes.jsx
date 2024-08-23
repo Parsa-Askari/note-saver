@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useState,useContext } from "react";
 import { ReloaderContext } from "../contexts/ReloaderContext";
-import { handleChange,handleSumbit ,GetNotes} from "../hooks/NoteHooks";
+import { handleChange,handleSumbit ,GetNotes,FilterNotes} from "../hooks/NoteHooks";
 import { NoteWindowContext } from "../contexts/NoteWindowContext";
+import { SearchContext } from "../contexts/SearchContext";
+import SearchBar from "../components/UI/SeachBar";
 import NoteItem from "../components/NoteItem";
 import NewItemModal from "../components/Modals/NewItemModal";
 import Header from "../containers/Header";
 import MainMenuBtn from "../components/UI/MainMenuBtn";
 import "./styles/Notes.scss"
 import './styles/scrollbars.scss'
+import NoItemFound from "../components/UI/NoItemFound";
 function NoteMenu()
 {
     const items=[
@@ -39,13 +42,13 @@ function NoteMenu()
 function NoteItems({NotesList})
 {
     return(
-        <>
+        <div id="notes">
              {NotesList.map((item,index)=><NoteItem 
                                             key={index}
                                             note_id={item['notes_id']}
                                             note_name={item['notes_name']}
              />)}
-        </>
+        </div>
        
     )
 }
@@ -53,10 +56,14 @@ function Notes()
 {
     const {topic_id}=useParams();
     const[NotesList,setNotesList]=useState([]);
-    const[noteName,setNoteName]=useState("");
+    const[noteName,setNoteName]=useState([]);
+    const[filterdNotes,setFilterdNotes]=useState("");
     const {reload,setReload}=useContext(ReloaderContext)
     const{displayedNoteName}=useContext(NoteWindowContext)
-    GetNotes(setNotesList,topic_id,reload)
+    const {searchValue}=useContext(SearchContext)
+    GetNotes(setNotesList,setFilterdNotes,topic_id,reload)
+    FilterNotes(searchValue,NotesList,setFilterdNotes)
+
     return(
         <main className="container-fluid">
             <NoteMenu />
@@ -68,19 +75,22 @@ function Notes()
                 <div className="col-3"></div>
             </div>
             <div className="row mt-5">
-                <div className="col-3"></div>
-                <div className="col-6" id="notes">
-                    {setNotesList.length==0 ? 
-                    <NoteItem >
-                        No Note Found
-                    </NoteItem>
-                    :
-                    <NoteItems NotesList={NotesList}/>
+                <div className="col-2"></div>
+                <div className="col-8 main_notes" >
+                    {filterdNotes.length==0 ? 
+                        <NoItemFound >
+                            No Note Found
+                        </NoItemFound>
+                        :
+                        <NoteItems NotesList={filterdNotes}/>
                     }
                     
                 </div>
-                <div className="col-3"></div>
+                <div className="col-2"></div>
             </div>
+            <footer className='row search-bar'>
+                <SearchBar />
+            </footer>
             <NewItemModal 
                 value={noteName}
                 handleChange={(event)=>handleChange(event,setNoteName)} 

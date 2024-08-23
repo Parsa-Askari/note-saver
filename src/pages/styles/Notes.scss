@@ -1,3 +1,4 @@
+// <NoteItems NotesList={NotesList}/>
 #note-title-window{
     height: 100px;
     font-family: mogra;
@@ -12,9 +13,14 @@
 #notes{
     display: flex;
     gap: 1rem;
-    height: 400px;
-    overflow-y: auto;
+    height: 95%;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: center;
+}
+.main_notes{
+    height: 5%;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
