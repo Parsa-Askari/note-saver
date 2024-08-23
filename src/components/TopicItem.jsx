@@ -1,13 +1,18 @@
 import { memo } from "react";
-import { DeleteBtn,EditBtn } from "../UI/SimpleButtons";
-import {truncateString} from '../../helpers/utils'
-import DeleteTopicModal from "../Modals/DeleteTopicModal";
-import EditTopicModal from "../Modals/EditTopicModal";
-import '../styles/TopicItem.scss'
+import { DeleteBtn,EditBtn } from "./UI/SimpleButtons";
+import { handleTopicButtons,handleChange } from "../hooks/TopicsHooks";
+import { useContext ,useState} from "react";
+import { ReloaderContext } from "../contexts/ReloaderContext";
+import {truncateString} from '../helpers/utils'
+import DeleteTopicModal from "./Modals/DeleteTopicModal";
+import EditTopicModal from "./Modals/EditTopicModal";
+import './styles/TopicItem.scss'
 
 
 function TopicItem({id,name,count,handler})
 {
+    const[itemName,setItemName]=useState(name)
+    const {setReload}=useContext(ReloaderContext)
     return(
         <div className="topic mb-5">
             <div className='topic-item' id={id} onClick={handler}>
@@ -35,10 +40,21 @@ function TopicItem({id,name,count,handler})
                     dataBsToggle={"modal"} 
                     dataBsTarget={"#DeleteTopicModal"+id}/>
             </div>
-            <DeleteTopicModal topic_name={name} topic_id={id}/>
-            <EditTopicModal topic_name={name} topic_id={id} />
+            <DeleteTopicModal 
+                item={"Topic"}
+                item_name={name} 
+                item_id={id} 
+                handleItemButtons={(event)=>handleTopicButtons(event,setReload,id)}/>
+            <EditTopicModal 
+                item_name={name} 
+                item_id={id} 
+                new_item_name={itemName}
+                handleItemButtons={(event)=>handleTopicButtons(event,setReload,id,itemName)}
+                handleChange={(event)=>handleChange(event,setItemName)}
+                item={"Topic"}
+                />
         </div>
         
     )
 }
-export default memo(TopicItem)
+export default memo(TopicItem);

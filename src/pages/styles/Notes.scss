@@ -1,5 +1,20 @@
 #note-title-window{
     height: 100px;
+    font-family: mogra;
+    text-wrap: wrap;
     background-color: white;
     border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#notes{
+    display: flex;
+    gap: 1rem;
+    height: 400px;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
 }

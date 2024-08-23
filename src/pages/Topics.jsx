@@ -1,16 +1,17 @@
 import Header from '../containers/Header';
 import { memo } from 'react';
 import { useState ,useContext} from 'react';
-import { handleTopicClicks,GetTopics,handleChange,handleSumbit } from '../hooks/TopicsHooks';
+import { handleTopicClicks,GetTopics,handleChange,handleSumbit,FilterTopics} from '../hooks/TopicsHooks';
 import { useNavigate } from 'react-router-dom';
 import { ReloaderContext } from '../contexts/ReloaderContext';
 import MainMenuBtn from '../components/UI/MainMenuBtn';
-import NoTopics from '../components/UI/NoTopics';
+import NoItemFound from '../components/UI/NoItemFound';
 import SearchBar from '../components/UI/SeachBar';
-import TopicItem from '../components/TopicsComponents/TopicItem';
+import TopicItem from '../components/TopicItem';
 import NewItemModal from '../components/Modals/NewItemModal';
 import "./styles/Topics.scss"
 import './styles/scrollbars.scss'
+import { SearchContext } from '../contexts/SearchContext';
 function TopicMenu()
 {
     const items=[
@@ -45,7 +46,7 @@ function TopicItems({topicsList})
         <>
             <div className='col-2 col-lg-3'></div>
             <div 
-                className='topic-items topic-scrollbar col-8 col-lg-6'>
+                className='topic-items  col-8 col-lg-6'>
                 {topicsList.map((item,index)=><TopicItem 
                                                 key={index}
                                                 handler={(event)=>handleTopicClicks(event,nav)}
@@ -63,16 +64,21 @@ function Topics()
 {
     const[topicsList,setTopicsList]=useState([]);
     const[topicName,setTopicName]=useState("");
+    const[filterdTopics,setFilterdTopics]=useState("");
     const {reload,setReload}=useContext(ReloaderContext)
-    GetTopics(setTopicsList,reload);
+    const {searchValue}=useContext(SearchContext)
+    GetTopics(setTopicsList,setFilterdTopics,reload);
+    FilterTopics(searchValue,topicsList,setFilterdTopics)
     return(
         <div className="container-fluid" id='topics-container'>
             <TopicMenu />
             <main className='row topics-main'>
                 {topicsList.length ==0 ? 
-                    <NoTopics /> 
+                    <NoItemFound>
+                        No Topics Found
+                    </NoItemFound> 
                         : 
-                    <TopicItems topicsList={topicsList} />
+                    <TopicItems topicsList={filterdTopics} />
                 }
                
             </main>

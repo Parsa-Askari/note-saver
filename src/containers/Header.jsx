@@ -1,4 +1,5 @@
 import "./styles/Header.scss"
+import { memo } from "react";
 function Header({children})
 {
     return(
@@ -9,4 +10,4 @@ function Header({children})
         </header>
     )
 }
-export default Header;
+export default memo(Header);

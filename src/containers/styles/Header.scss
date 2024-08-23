@@ -2,12 +2,15 @@
     --menu-height:40px;
 }
 header{
+    position: sticky;
+    top: 0;
     background-color: #FFCC00;
     height: var(--menu-height);
     border-radius: 20px;
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    
     
 }
 .menu-bar{

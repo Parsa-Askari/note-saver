@@ -41,3 +41,20 @@
       font-weight: normal;
       font-style: normal;
 }
+
+.main-scrollbar{
+    &::-webkit-scrollbar {
+        width: 10px; /* Width of the scrollbar */
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #ac00fc; /* Scrollbar color */
+        border-radius: 10px; /* Scrollbar thumb radius */
+        border: 0px solid #fff; /* Space around scrollbar thumb */
+    }
+    
+    &::-webkit-scrollbar-track {
+        background-color: #ffffff00; /* Scrollbar track color */
+        border-radius: 10px; /* Scrollbar track radius */
+    }
+    
+}

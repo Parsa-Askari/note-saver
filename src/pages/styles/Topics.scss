@@ -1,17 +1,18 @@
 .topics-main{
     margin-top: 100px;
-    height: 400px;
+    height: 95%;
 
 }
 .search-bar{
     margin-top: 150px;
-    position: relative;
+    position: sticky;
     bottom: 20px;
+    height: 5%;
 }
 
-.topic-items{
-    height: 100%;
-    overflow-y: auto;
-}
+// .topic-items{
+//     // height: 50vh;
+//     // overflow-y: auto;
+// }
 
 

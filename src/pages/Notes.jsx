@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useState,useContext } from "react";
 import { ReloaderContext } from "../contexts/ReloaderContext";
-import { handleChange,handleSumbit } from "../hooks/NoteHooks";
+import { handleChange,handleSumbit ,GetNotes} from "../hooks/NoteHooks";
+import { NoteWindowContext } from "../contexts/NoteWindowContext";
+import NoteItem from "../components/NoteItem";
 import NewItemModal from "../components/Modals/NewItemModal";
 import Header from "../containers/Header";
 import MainMenuBtn from "../components/UI/MainMenuBtn";
 import "./styles/Notes.scss"
-function TopicMenu()
+import './styles/scrollbars.scss'
+function NoteMenu()
 {
     const items=[
                 {"text":"Export","id":"export","class":"col justify-content-center",
@@ -33,26 +36,55 @@ function TopicMenu()
         </Header>
     )
 }
+function NoteItems({NotesList})
+{
+    return(
+        <>
+             {NotesList.map((item,index)=><NoteItem 
+                                            key={index}
+                                            note_id={item['notes_id']}
+                                            note_name={item['notes_name']}
+             />)}
+        </>
+       
+    )
+}
 function Notes()
 {
     const {topic_id}=useParams();
-    const[topicsList,setTopicsList]=useState([]);
+    const[NotesList,setNotesList]=useState([]);
     const[noteName,setNoteName]=useState("");
     const {reload,setReload}=useContext(ReloaderContext)
+    const{displayedNoteName}=useContext(NoteWindowContext)
+    GetNotes(setNotesList,topic_id,reload)
     return(
         <main className="container-fluid">
-            <TopicMenu />
+            <NoteMenu />
             <div className="row mt-4">
                 <div className="col-3"></div>
                 <div className="col-6" id="note-title-window">
-
+                    {displayedNoteName}
+                </div>
+                <div className="col-3"></div>
+            </div>
+            <div className="row mt-5">
+                <div className="col-3"></div>
+                <div className="col-6" id="notes">
+                    {setNotesList.length==0 ? 
+                    <NoteItem >
+                        No Note Found
+                    </NoteItem>
+                    :
+                    <NoteItems NotesList={NotesList}/>
+                    }
+                    
                 </div>
                 <div className="col-3"></div>
             </div>
             <NewItemModal 
                 value={noteName}
                 handleChange={(event)=>handleChange(event,setNoteName)} 
-                handleSumbit={(event)=>handleSumbit(event,setNoteName,topic_id,noteName,setReload)} 
+                handleSumbit={(event)=>handleSumbit(event,setNoteName,noteName,setReload)} 
                 name={"Note"}
                 />
         </main>

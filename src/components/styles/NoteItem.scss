@@ -1,0 +1,24 @@
+.note{
+    display: flex;
+    gap: 5px;
+    font-family : mogra;
+    &__body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: yellow;
+        width: 200px;
+        height: 60px;
+        border-radius: 20px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &__tools{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+}
