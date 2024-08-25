@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState,useContext } from "react";
 import { ReloaderContext } from "../contexts/ReloaderContext";
-import { handleChange,handleSumbit ,GetNotes,FilterNotes} from "../hooks/NoteHooks";
+import { handleChange,handleSumbit ,GetNotes,FilterNotes,handleNoteClicks} from "../hooks/NoteHooks";
 import { NoteWindowContext } from "../contexts/NoteWindowContext";
 import { SearchContext } from "../contexts/SearchContext";
 import SearchBar from "../components/UI/SeachBar";
@@ -39,12 +39,14 @@ function NoteMenu()
         </Header>
     )
 }
-function NoteItems({NotesList})
+function NoteItems({NotesList,topic_id})
 {
+    const nav=useNavigate();
     return(
         <div id="notes">
              {NotesList.map((item,index)=><NoteItem 
                                             key={index}
+                                            handleNoteClicks={(event)=>handleNoteClicks(event,nav,topic_id)}
                                             note_id={item['notes_id']}
                                             note_name={item['notes_name']}
              />)}
@@ -82,15 +84,17 @@ function Notes()
                             No Note Found
                         </NoItemFound>
                         :
-                        <NoteItems NotesList={filterdNotes}/>
+                        <NoteItems NotesList={filterdNotes} topic_id={topic_id}/>
                     }
                     
                 </div>
                 <div className="col-2"></div>
             </div>
+            
             <footer className='row search-bar'>
                 <SearchBar />
             </footer>
+            
             <NewItemModal 
                 value={noteName}
                 handleChange={(event)=>handleChange(event,setNoteName)} 

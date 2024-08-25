@@ -84,6 +84,7 @@ function GetTopics(setTopicsList,setFilterdTopics,reload)
 {
     
     useEffect(()=>{
+        document.body.style.backgroundColor = "#070026";
         const func = async()=>{
             try{
                 const res=await fetch("http://localhost/note-saver-server/GetTopics.php",{

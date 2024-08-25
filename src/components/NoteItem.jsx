@@ -8,13 +8,18 @@ import {truncateString} from '../helpers/utils'
 import DeleteTopicModal from "./Modals/DeleteTopicModal";
 import EditTopicModal from "./Modals/EditTopicModal";
 import "./styles/NoteItem.scss"
-function NoteItem({note_id,note_name})
+function NoteItem({note_id,note_name,handleNoteClicks})
 {
     const{handleWindowDisplay}=useContext(NoteWindowContext)
     const[itemName,setItemName]=useState(note_name)
     const {setReload}=useContext(ReloaderContext)
     return(
-        <div className="note" id={note_id} name={note_name} onMouseOver={handleWindowDisplay} >
+        <div 
+            className="note" 
+            id={note_id} 
+            name={note_name} 
+            onClick={handleNoteClicks}
+            onMouseOver={handleWindowDisplay} >
             <div className="note__body" >
                 {truncateString(note_name,10)}
             </div>

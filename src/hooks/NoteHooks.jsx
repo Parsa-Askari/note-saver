@@ -4,6 +4,7 @@ import { toast } from "../components/UI/Alerts";
 function GetNotes(setNotesList,setFilterdNotes,topic_id,reload)
 {
     useEffect(()=>{
+        document.body.style.backgroundColor = "#070026";
         const func = async()=>{
             try{
                 
@@ -26,6 +27,11 @@ function GetNotes(setNotesList,setFilterdNotes,topic_id,reload)
         }
         func();
     },[reload])
+}
+const handleNoteClicks=(event,nav,topic_id)=>{
+    
+    const id=event.target.closest('.note').id;
+    nav(`/notes/${topic_id}/${id}`)
 }
 function FilterNotes(searchValue,NotesList,setFilterdNotes)
 {
@@ -112,4 +118,5 @@ export {handleChange,
         handleSumbit,
         GetNotes,
         handleNoteButtons,
+        handleNoteClicks,
         FilterNotes}
