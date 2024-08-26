@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGrip } from '@fortawesome/free-solid-svg-icons';
 import { useEffect , useState,useContext} from "react";
-import { GetNote } from "../hooks/EditorHooks";
+import { GetNote,handleMenuMovement,handleMenuGrab,handleMenuRelease} from "../hooks/EditorHooks";
 import { ReloaderContext } from "../contexts/ReloaderContext";
 import EditorTopMenuBtn from "../components/UI/EditorTopMenuBtn";
+import NoteMenuBtn from "../components/UI/NoteMenuBtn";
+import EditorItem from "../components/EditorItem";
 import "./styles/Editor.scss"
 function TopMenu()
 {
@@ -36,36 +38,29 @@ function TopMenu()
         </div>
     )
 }
-function NotesMenu()
-{
-    const [mousePosition,setMousePosition]=useState({x:20,y:70})
+function NotesMenu(props)
+{ 
     const style={
         position: 'absolute',
-        left: `${mousePosition.x}px`,
-        top: `${mousePosition.y}px`
+        left: `${props.mousePosition.x}px`,
+        top: `${props.mousePosition.y}px`
     }
-    
     return(
-        <div className="notes-menu" style={style}>
+        <div className="notes-menu" style={style} >
             <div className="notes-menu__header">
                 <EditorTopMenuBtn id={"dote"} 
                             icon={"fa fa-minus"} 
                             name={""} 
                             border={"n"}/>
+                <div className="grab-menu" onMouseDown={props.handleMenuGrab}>
+                    <FontAwesomeIcon icon={faGrip} size="sm"/>
+                </div>
             </div>
             <div className="notes-menu__body">
-                <div className="notes-menu__note mb-1">
-                    <div className="grab">
-                        <FontAwesomeIcon icon={faGrip} size="sm"/>
-                    </div>
-                    <span>hello</span>
-                </div>
-                <div className="notes-menu__note mb-1">
-                    <span>span</span>
-                </div>
-                <div className="notes-menu__note mb-1">
-                    <span>parsa</span>
-                </div>
+                <NoteMenuBtn name={"part1"} id={"1"}/>
+                <NoteMenuBtn name={"part2"} id={"2"}/>
+                <NoteMenuBtn name={"part3"} id={"3"}/>
+                <NoteMenuBtn name={"part4"} id={"4"}/>
             </div>
         </div>
     )
@@ -73,21 +68,31 @@ function NotesMenu()
 function Editor()
 {
     const {topic_id,note_id}=useParams();
+    const [mousePosition,setMousePosition]=useState({x:20,y:300})
+    const [menuIsGrabed,setMenuIsGrabed]=useState(false)  
     const{reload} = useContext(ReloaderContext)
     GetNote(reload);
     return(
-        <main className="container-fluid">
+        <main 
+            className="container-fluid" 
+            onMouseMove={(event)=>handleMenuMovement(event,menuIsGrabed,setMousePosition)} 
+            onMouseUp={(event)=>handleMenuRelease(event,setMenuIsGrabed)}>
             <div className="row justify-content-center mt-2">
                 <div className="col-8">
                     <TopMenu />
                 </div>
             </div>
             <div className="row mt-4">
-                <div className="col-1">
-                    <NotesMenu />  
+                <div className="col-2">
+                    <NotesMenu 
+                        mousePosition={mousePosition}
+                        handleMenuGrab={(event)=>handleMenuGrab(event,setMenuIsGrabed)}
+                    />  
                 </div>
-                <div className="col-10">2</div>
-                <div className="col-1">3</div>
+                <div className="col-8">
+                    <EditorItem type={"text"} id={"1"} />
+                </div>
+                <div className="col-2">3</div>
             </div>
         </main>
     )

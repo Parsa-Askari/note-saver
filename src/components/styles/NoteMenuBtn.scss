@@ -1,0 +1,27 @@
+.notes-menu__note{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    background-color: white;
+    & .grab{
+        position: absolute;
+        left: 0;
+        height: inherit;
+        background-color: rgb(253, 203, 203);
+        color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: gray;
+        &:hover{
+            cursor: pointer;
+            
+        }
+    }
+    & span{
+        font-family: Rubix;
+    }
+}
+
+
