@@ -4,7 +4,7 @@ import { faGrip, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import "./styles/EditorItem.scss"
 function TextItem(props)
 {
-    const [editMode,setEditMode]=useState(true);
+    const [editMode,setEditMode]=useState(false);
     const [EditText,setEditText]=useState("")
     const [DispalyText,setDispalyText]=useState()
     const handleDispalyMode = (event)=>{
@@ -27,24 +27,31 @@ function TextItem(props)
     }
     
     return(
-        <div className="item text-item" id={props.id}>
-        {editMode ? 
-            <div className="text-item__input">
-                <textarea onKeyDown={handleDispalyMode} value={EditText} onChange={handleChange}></textarea>
-            </div>
-            :
-            <div className="text-item__display">
-                <div className="header">
-                    <span onClick={handleEditMode}>
-                        <FontAwesomeIcon icon={faPenToSquare} size="lg"/>
-                    </span>
+        <div 
+            className="item text-item" 
+            id={props.id} 
+            ref={props.provided.innerRef}
+            {...props.provided.draggableProps}
+            {...props.provided.dragHandleProps}
+            
+            >
+            {editMode ? 
+                <div className="text-item__input">
+                    <textarea onKeyDown={handleDispalyMode} value={EditText} onChange={handleChange}></textarea>
                 </div>
-                <div className="body">
-                    {DispalyText}
+                :
+                <div className="text-item__display">
+                    <div className="header">
+                        <span onClick={handleEditMode}>
+                            <FontAwesomeIcon icon={faPenToSquare} size="lg"/>
+                        </span>
+                    </div>
+                    <div className="body">
+                        {props.id}
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
     )
 }
 function EditorIteM(props)
@@ -52,8 +59,8 @@ function EditorIteM(props)
     if(props.type=="text")
     {
         return(
-            <TextItem id={props.id} />
+            <TextItem id={props.id} provided={props.provided}/>
         )
     }
 }
-export default memo(EditorIteM)
+export default EditorIteM

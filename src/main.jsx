@@ -14,7 +14,7 @@ function BackgroundChanger() {
     },[])
 }
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
+    // <StrictMode>
             <Router>
                 <SearchContextProvider>
                     <NoteWindowContextProvider>
@@ -29,5 +29,5 @@ createRoot(document.getElementById('root')).render(
                     </NoteWindowContextProvider>
                 </SearchContextProvider>
             </Router>
-    </StrictMode>
+    // {/* </StrictMode> */}
 )

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGrip } from '@fortawesome/free-solid-svg-icons';
 import { useEffect , useState,useContext} from "react";
 import { GetNote,handleMenuMovement,handleMenuGrab,handleMenuRelease} from "../hooks/EditorHooks";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { ReloaderContext } from "../contexts/ReloaderContext";
 import EditorTopMenuBtn from "../components/UI/EditorTopMenuBtn";
 import NoteMenuBtn from "../components/UI/NoteMenuBtn";
@@ -71,30 +72,64 @@ function Editor()
     const [mousePosition,setMousePosition]=useState({x:20,y:300})
     const [menuIsGrabed,setMenuIsGrabed]=useState(false)  
     const{reload} = useContext(ReloaderContext)
+    const [editsList,setEditsList]=useState([
+                                            {"type":"text","id":1},
+                                            {"type":"text","id":2},
+                                            {"type":"text","id":3}])
+    const onDragEnd = (result) => {
+        if (!result.destination) return;
+
+        const items = Array.from(editsList);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+        setEditsList(items);
+    };
     GetNote(reload);
     return(
-        <main 
-            className="container-fluid" 
-            onMouseMove={(event)=>handleMenuMovement(event,menuIsGrabed,setMousePosition)} 
-            onMouseUp={(event)=>handleMenuRelease(event,setMenuIsGrabed)}>
-            <div className="row justify-content-center mt-2">
-                <div className="col-8">
-                    <TopMenu />
+        <DragDropContext onDragEnd={onDragEnd}>
+            <main 
+                className="container-fluid" 
+                onMouseMove={(event)=>handleMenuMovement(event,menuIsGrabed,setMousePosition)} 
+                onMouseUp={(event)=>handleMenuRelease(event,setMenuIsGrabed)}>
+                <div className="row justify-content-center mt-2">
+                    <div className="col-8">
+                        <TopMenu />
+                    </div>
                 </div>
-            </div>
-            <div className="row mt-4">
-                <div className="col-2">
-                    <NotesMenu 
-                        mousePosition={mousePosition}
-                        handleMenuGrab={(event)=>handleMenuGrab(event,setMenuIsGrabed)}
-                    />  
+                <div className="row mt-4">
+                    <div className="col-2">
+                        <NotesMenu 
+                            mousePosition={mousePosition}
+                            handleMenuGrab={(event)=>handleMenuGrab(event,setMenuIsGrabed)}
+                        />  
+                    </div>
+                    <Droppable droppableId="edits">
+                        {(provided)=>(
+                            <div className="col-8" 
+                            ref={provided.innerRef} {...provided.droppableProps}>
+                                {editsList.map((item,index)=>(
+                                    <Draggable
+                                        key={item.id}
+                                        draggableId={item.id.toString()}
+                                        index={index}
+                                        >
+                                        {(provided)=>(
+                                            <EditorItem
+                                                key={index}
+                                                provided={provided}
+                                                type={item['type']} 
+                                                id={item['id']}/> 
+                                        )}
+                                    </Draggable>                                          
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                    <div className="col-2">3</div>
                 </div>
-                <div className="col-8">
-                    <EditorItem type={"text"} id={"1"} />
-                </div>
-                <div className="col-2">3</div>
-            </div>
-        </main>
+            </main>
+        </DragDropContext>
     )
 
 }
