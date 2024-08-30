@@ -28,6 +28,8 @@ function TopMenu()
                                         name={"Text"} border={"l"}/>
                     <EditorTopMenuBtn id={"image"} icon={"fa-picture-o"} 
                                         name={"Image"} border={"l"}/>
+                    <EditorTopMenuBtn id={"heading"} icon={"fa-header"} 
+                                        name={"Heading"} border={"l"}/>
                 </div>
                 <div className="mobile d-sm-none d-flex ">
                     <EditorTopMenuBtn id={"dote"} 
@@ -75,7 +77,7 @@ function Editor()
     const [editsList,setEditsList]=useState([
                                             {"type":"text","id":1},
                                             {"type":"text","id":2},
-                                            {"type":"text","id":3}])
+                                            {"type":"heading","id":3}])
     const onDragEnd = (result) => {
         if (!result.destination) return;
 
