@@ -4,6 +4,7 @@ import { faGrip, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import "./styles/EditorItem.scss"
 function TextItem(props)
 {
+    
     const [editMode,setEditMode]=useState(false);
     const [EditText,setEditText]=useState("")
     const [DispalyText,setDispalyText]=useState()
